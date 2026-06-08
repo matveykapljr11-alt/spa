@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SÔMA — Sanctuary Spa & Bathhouse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Hanken+Grotesk:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F3ECE1;
+    --cream-deep:#E9DFCF;
+    --espresso:#2A2420;
+    --espresso-soft:#4A4038;
+    --clay:#BF6B47;
+    --clay-deep:#A6552F;
+    --sage:#7E8A6E;
+    --line:rgba(42,36,32,.14);
+    --serif:"Fraunces",Georgia,serif;
+    --sans:"Hanken Grotesk",system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--cream);
+    color:var(--espresso);
+    font-family:var(--sans);
+    font-weight:400;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  /* grain */
+  body::after{
+    content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.045;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  ::selection{background:var(--clay);color:var(--cream)}
+
+  /* ---------- nav ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:26px clamp(20px,5vw,70px);
+    mix-blend-mode:difference;
+  }
+  nav .logo{
+    font-family:var(--serif);font-weight:500;font-size:23px;letter-spacing:.32em;
+    color:#fff;text-indent:.32em;
+  }
+  nav .links{display:flex;gap:38px;align-items:center}
+  nav .links a{
+    color:#fff;text-decoration:none;font-size:13px;letter-spacing:.14em;
+    text-transform:uppercase;opacity:.85;transition:opacity .3s;
+  }
+  nav .links a:hover{opacity:1}
+  nav .book{
+    border:1px solid rgba(255,255,255,.5);border-radius:40px;
+    padding:10px 22px;font-size:12px;
+  }
+  @media(max-width:760px){nav .links a:not(.book){display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{
+    min-height:100vh;position:relative;display:flex;flex-direction:column;
+    justify-content:flex-end;
+    padding:0 clamp(20px,5vw,70px) clamp(40px,6vw,80px);
+    background:
+      radial-gradient(120% 90% at 75% 15%, rgba(191,107,71,.28), transparent 55%),
+      radial-gradient(100% 80% at 10% 90%, rgba(126,138,110,.3), transparent 50%),
+      linear-gradient(160deg,#241f1b 0%,#3a322b 55%,#5a4a3c 100%);
+    overflow:hidden;
+  }
+  .hero .steam{
+    position:absolute;border-radius:50%;filter:blur(60px);opacity:.5;
+    background:radial-gradient(circle,rgba(243,236,225,.5),transparent 70%);
+    animation:drift 18s ease-in-out infinite;
+  }
+  .steam.s1{width:480px;height:480px;top:-120px;right:5%;animation-delay:0s}
+  .steam.s2{width:360px;height:360px;bottom:10%;left:-80px;animation-delay:-6s;opacity:.3}
+  @keyframes drift{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-40px) scale(1.12)}}
+
+  .hero .tag{
+    position:absolute;top:clamp(110px,16vh,160px);left:clamp(20px,5vw,70px);
+    color:var(--cream);font-size:13px;letter-spacing:.28em;text-transform:uppercase;
+    opacity:0;animation:fadeUp 1s .3s forwards;
+  }
+  .hero h1{
+    font-family:var(--serif);color:var(--cream);font-weight:300;
+    font-size:clamp(54px,11vw,158px);line-height:.92;letter-spacing:-.02em;
+    max-width:14ch;
+  }
+  .hero h1 .l{display:block;opacity:0;transform:translateY(40px);animation:fadeUp 1.1s forwards}
+  .hero h1 .l:nth-child(1){animation-delay:.45s}
+  .hero h1 .l:nth-child(2){animation-delay:.6s}
+  .hero h1 em{font-style:italic;color:var(--clay)}
+  .hero .row{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    gap:30px;flex-wrap:wrap;margin-top:38px;
+    opacity:0;animation:fadeUp 1s .95s forwards;
+  }
+  .hero .row p{color:rgba(243,236,225,.78);max-width:38ch;font-size:16px;font-weight:300}
+  .cta{
+    display:inline-flex;align-items:center;gap:12px;
+    background:var(--cream);color:var(--espresso);text-decoration:none;
+    padding:17px 34px;border-radius:50px;font-size:14px;letter-spacing:.04em;
+    font-weight:500;white-space:nowrap;transition:transform .35s,background .35s;
+  }
+  .cta:hover{transform:translateY(-3px);background:var(--clay);color:var(--cream)}
+  .cta .arr{transition:transform .35s}
+  .cta:hover .arr{transform:translate(4px,-4px)}
+
+  @keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+
+  /* ---------- marquee ---------- */
+  .marquee{
+    background:var(--espresso);color:var(--cream-deep);overflow:hidden;
+    padding:16px 0;white-space:nowrap;
+  }
+  .marquee .track{display:inline-flex;animation:scroll 28s linear infinite}
+  .marquee span{
+    font-family:var(--serif);font-style:italic;font-size:22px;font-weight:300;
+    padding:0 34px;opacity:.85;
+  }
+  .marquee span::after{content:"✦";font-style:normal;margin-left:34px;color:var(--clay);font-size:14px}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+
+  /* ---------- section base ---------- */
+  section.pad{padding:clamp(70px,10vw,140px) clamp(20px,5vw,70px)}
+  .eyebrow{
+    font-size:12px;letter-spacing:.26em;text-transform:uppercase;color:var(--clay-deep);
+    display:flex;align-items:center;gap:14px;margin-bottom:26px;
+  }
+  .eyebrow::before{content:"";width:34px;height:1px;background:var(--clay-deep)}
+  .reveal{opacity:0;transform:translateY(34px);transition:opacity 1s,transform 1s}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- philosophy ---------- */
+  .philo{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,7vw,110px);align-items:center}
+  .philo h2{
+    font-family:var(--serif);font-weight:300;font-size:clamp(32px,4.4vw,58px);
+    line-height:1.1;letter-spacing:-.01em;
+  }
+  .philo h2 em{font-style:italic;color:var(--clay)}
+  .philo .body p{color:var(--espresso-soft);font-size:17px;font-weight:300;margin-bottom:22px;max-width:46ch}
+  .stats{display:flex;gap:50px;margin-top:14px;flex-wrap:wrap}
+  .stats .n{font-family:var(--serif);font-size:46px;font-weight:400;line-height:1;color:var(--clay-deep)}
+  .stats .lbl{font-size:13px;letter-spacing:.08em;color:var(--espresso-soft);margin-top:6px}
+  @media(max-width:780px){.philo{grid-template-columns:1fr}}
+
+  /* ---------- treatments ---------- */
+  .treat-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:54px}
+  .treat-head h2{font-family:var(--serif);font-weight:300;font-size:clamp(34px,5vw,68px);line-height:1;letter-spacing:-.01em}
+  .treat-head p{color:var(--espresso-soft);max-width:34ch;font-weight:300}
+  .menu{border-top:1px solid var(--line)}
+  .item{
+    display:grid;grid-template-columns:auto 1fr auto auto;gap:clamp(16px,4vw,48px);
+    align-items:center;padding:30px 8px;border-bottom:1px solid var(--line);
+    cursor:pointer;transition:background .4s,padding-left .4s;position:relative;
+  }
+  .item:hover{background:var(--cream-deep);padding-left:24px}
+  .item .idx{font-family:var(--serif);font-size:14px;color:var(--clay-deep);font-style:italic}
+  .item .name{font-family:var(--serif);font-size:clamp(22px,2.6vw,32px);font-weight:400}
+  .item .desc{color:var(--espresso-soft);font-size:14px;font-weight:300;max-width:30ch}
+  .item .price{font-family:var(--serif);font-size:20px;white-space:nowrap}
+  .item .dur{font-size:13px;color:var(--espresso-soft);letter-spacing:.05em;white-space:nowrap}
+  @media(max-width:820px){
+    .item{grid-template-columns:auto 1fr auto;gap:18px}
+    .item .desc{display:none}
+  }
+
+  /* ---------- experience tiles ---------- */
+  .exp{background:var(--espresso);color:var(--cream)}
+  .exp .eyebrow{color:var(--clay)}
+  .exp .eyebrow::before{background:var(--clay)}
+  .exp h2{font-family:var(--serif);font-weight:300;font-size:clamp(32px,4.6vw,60px);line-height:1.08;max-width:18ch;margin-bottom:60px}
+  .exp h2 em{font-style:italic;color:var(--clay)}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(243,236,225,.12)}
+  .tile{background:var(--espresso);padding:46px 36px;transition:background .5s}
+  .tile:hover{background:#352d27}
+  .tile .ic{font-family:var(--serif);font-size:30px;color:var(--clay);font-style:italic;margin-bottom:24px}
+  .tile h3{font-family:var(--serif);font-weight:400;font-size:25px;margin-bottom:12px}
+  .tile p{color:rgba(243,236,225,.66);font-size:15px;font-weight:300}
+  @media(max-width:820px){.grid3{grid-template-columns:1fr}}
+
+  /* ---------- quote ---------- */
+  .quote{text-align:center;background:
+    radial-gradient(80% 120% at 50% 0%,rgba(191,107,71,.12),transparent 60%);}
+  .quote blockquote{
+    font-family:var(--serif);font-weight:300;font-style:italic;
+    font-size:clamp(28px,4.2vw,54px);line-height:1.25;max-width:18ch;margin:0 auto;
+    letter-spacing:-.01em;
+  }
+  .quote .who{margin-top:34px;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--clay-deep)}
+
+  /* ---------- booking ---------- */
+  .book-sec{
+    background:linear-gradient(150deg,#3a322b,#241f1b);color:var(--cream);
+    border-radius:40px;margin:0 clamp(14px,4vw,60px) clamp(40px,7vw,90px);
+    padding:clamp(54px,8vw,110px) clamp(28px,6vw,90px);position:relative;overflow:hidden;
+  }
+  .book-sec .glow{position:absolute;width:500px;height:500px;border-radius:50%;
+    background:radial-gradient(circle,rgba(191,107,71,.4),transparent 70%);
+    filter:blur(40px);top:-150px;right:-80px;opacity:.6}
+  .book-sec h2{font-family:var(--serif);font-weight:300;font-size:clamp(38px,6vw,84px);line-height:1;letter-spacing:-.02em;position:relative;max-width:14ch}
+  .book-sec h2 em{font-style:italic;color:var(--clay)}
+  .book-sec .sub{color:rgba(243,236,225,.72);margin:28px 0 40px;max-width:42ch;font-weight:300;position:relative}
+  .book-sec .actions{display:flex;gap:18px;flex-wrap:wrap;position:relative}
+  .ghost{
+    display:inline-flex;align-items:center;gap:10px;border:1px solid rgba(243,236,225,.4);
+    color:var(--cream);text-decoration:none;padding:17px 32px;border-radius:50px;
+    font-size:14px;transition:border-color .3s,background .3s;
+  }
+  .ghost:hover{background:rgba(243,236,225,.1);border-color:var(--cream)}
+
+  /* ---------- footer ---------- */
+  footer{padding:clamp(50px,7vw,90px) clamp(20px,5vw,70px) 50px}
+  .foot-top{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;padding-bottom:60px;border-bottom:1px solid var(--line)}
+  footer .logo-big{font-family:var(--serif);font-size:clamp(50px,9vw,120px);font-weight:300;letter-spacing:.04em;line-height:1}
+  footer .col h4{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--clay-deep);margin-bottom:18px}
+  footer .col a,footer .col p{display:block;color:var(--espresso-soft);text-decoration:none;font-size:15px;font-weight:300;margin-bottom:10px;transition:color .3s}
+  footer .col a:hover{color:var(--clay)}
+  .foot-bot{display:flex;justify-content:space-between;padding-top:26px;font-size:13px;color:var(--espresso-soft);flex-wrap:wrap;gap:14px}
+  @media(max-width:780px){.foot-top{grid-template-columns:1fr 1fr}footer .logo-big{grid-column:1/-1}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">SÔMA</div>
+  <div class="links">
+    <a href="#philosophy">Philosophy</a>
+    <a href="#treatments">Treatments</a>
+    <a href="#experience">Experience</a>
+    <a href="#book" class="book">Reserve</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="steam s1"></div>
+  <div class="steam s2"></div>
+  <div class="tag">Sanctuary Spa &amp; Bathhouse · Est. 2019</div>
+  <h1>
+    <span class="l">Slow down,</span>
+    <span class="l">come <em>home</em> to the body.</span>
+  </h1>
+  <div class="row">
+    <p>A quiet retreat of thermal waters, warm stone and unhurried hands — designed to return you to stillness.</p>
+    <a href="#book" class="cta">Reserve your ritual <span class="arr">↗</span></a>
+  </div>
+</header>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="track">
+    <span>Thermal Bathing</span><span>Deep Tissue</span><span>Hot Stone</span><span>Herbal Steam</span><span>Aromatherapy</span><span>Cold Plunge</span>
+    <span>Thermal Bathing</span><span>Deep Tissue</span><span>Hot Stone</span><span>Herbal Steam</span><span>Aromatherapy</span><span>Cold Plunge</span>
+  </div>
+</div>
+
+<!-- PHILOSOPHY -->
+<section class="pad philo reveal" id="philosophy">
+  <div>
+    <div class="eyebrow">Our Philosophy</div>
+    <h2>Rest is not a luxury. It is the <em>return</em> to yourself.</h2>
+  </div>
+  <div class="body">
+    <p>SÔMA was born from a simple belief — that the body knows how to heal when given silence, warmth, and time. Every detail here, from the temperature of the water to the weight of the linen, is composed to quiet the nervous system.</p>
+    <p>No screens. No rush. Only the slow choreography of heat and cold, breath and touch.</p>
+    <div class="stats">
+      <div><div class="n">12</div><div class="lbl">Private suites</div></div>
+      <div><div class="n">40°</div><div class="lbl">Thermal pool</div></div>
+      <div><div class="n">9k+</div><div class="lbl">Rituals given</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TREATMENTS -->
+<section class="pad reveal" id="treatments">
+  <div class="treat-head">
+    <h2>The Ritual Menu</h2>
+    <p>Each treatment is a full sensory passage — chosen and paced for where your body is today.</p>
+  </div>
+  <div class="menu">
+    <div class="item">
+      <div class="idx">01</div>
+      <div><div class="name">Still Water Soak</div></div>
+      <div class="desc">Mineral thermal bathing with cold-plunge contrast and silence.</div>
+      <div class="dur">60 MIN</div>
+      <div class="price">€85</div>
+    </div>
+    <div class="item">
+      <div class="idx">02</div>
+      <div><div class="name">Warm Stone Release</div></div>
+      <div class="desc">Basalt stones and slow pressure to melt held tension.</div>
+      <div class="dur">90 MIN</div>
+      <div class="price">€140</div>
+    </div>
+    <div class="item">
+      <div class="idx">03</div>
+      <div><div class="name">Herbal Steam Ceremony</div></div>
+      <div class="desc">Guided aromatic löyly with eucalyptus and birch.</div>
+      <div class="dur">45 MIN</div>
+      <div class="price">€70</div>
+    </div>
+    <div class="item">
+      <div class="idx">04</div>
+      <div><div class="name">The Full Passage</div></div>
+      <div class="desc">Bath, steam, deep-tissue and rest — a half-day surrender.</div>
+      <div class="dur">3 HRS</div>
+      <div class="price">€260</div>
+    </div>
+    <div class="item">
+      <div class="idx">05</div>
+      <div><div class="name">Two, In Stillness</div></div>
+      <div class="desc">A shared suite ritual for couples or close kin.</div>
+      <div class="dur">2 HRS</div>
+      <div class="price">€320</div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section class="pad exp reveal" id="experience">
+  <div class="eyebrow">The Experience</div>
+  <h2>Designed around the <em>rhythm</em> of heat, cold and rest.</h2>
+  <div class="grid3">
+    <div class="tile">
+      <div class="ic">i.</div>
+      <h3>Thermal Circuit</h3>
+      <p>Move between sauna, steam, and a spring-fed cold plunge — the ancient cycle that resets body and mind.</p>
+    </div>
+    <div class="tile">
+      <div class="ic">ii.</div>
+      <h3>The Quiet Room</h3>
+      <p>Heated stone loungers, herbal tea and total silence. No phones cross the threshold.</p>
+    </div>
+    <div class="tile">
+      <div class="ic">iii.</div>
+      <h3>Hands &amp; Oil</h3>
+      <p>Therapists trained across Nordic, Thai and lymphatic traditions, working in unhurried intuition.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTE -->
+<section class="pad quote reveal">
+  <blockquote>“I arrived carrying a week. I left carrying nothing at all.”</blockquote>
+  <div class="who">— A guest, after The Full Passage</div>
+</section>
+
+<!-- BOOKING -->
+<section class="book-sec reveal" id="book">
+  <div class="glow"></div>
+  <div class="eyebrow" style="color:var(--clay)"><span style="--c:var(--clay)"></span>Reserve</div>
+  <h2>Your ritual <em>awaits.</em></h2>
+  <p class="sub">Open daily, 9am – 10pm. Same-day reservations welcome by phone; ritual packages we recommend booking a few days ahead.</p>
+  <div class="actions">
+    <a href="#" class="cta">Book online <span class="arr">↗</span></a>
+    <a href="tel:+35799000000" class="ghost">Call +357 99 000 000</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-top">
+    <div class="logo-big">SÔMA</div>
+    <div class="col">
+      <h4>Visit</h4>
+      <p>14 Olive Grove Lane<br>Limassol, Cyprus</p>
+      <a href="#">Get directions</a>
+    </div>
+    <div class="col">
+      <h4>Connect</h4>
+      <a href="#">Instagram</a>
+      <a href="#">Newsletter</a>
+      <a href="#">Gift cards</a>
+      <a href="mailto:hello@soma.spa">hello@soma.spa</a>
+    </div>
+  </div>
+  <div class="foot-bot">
+    <span>© 2026 SÔMA Sanctuary. All rights reserved.</span>
+    <span>Crafted for stillness.</span>
+  </div>
+</footer>
+
+<script>
+  const io=new IntersectionObserver((es)=>{
+    es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}});
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
